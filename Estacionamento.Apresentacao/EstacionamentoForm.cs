@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Estacionamento.Negocio;
 
 namespace Estacionamento.Apresentacao
 {
@@ -48,6 +47,23 @@ namespace Estacionamento.Apresentacao
                 client.Close();
                 
                 MessageBox.Show(String.Format("Placa '{0}' valor de R${1}.", placa, valor));
+                textBox1.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EstacionamentoService.EstacionamentoServiceClient client = new EstacionamentoService.EstacionamentoServiceClient();
+                var valor = client.VagasRestantes();
+                client.Close();
+
+                MessageBox.Show(String.Format("Numero de vagas restantes: {0}.", valor));
                 textBox1.Text = string.Empty;
             }
             catch (Exception ex)
